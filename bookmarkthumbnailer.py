@@ -35,6 +35,9 @@ def make_thumbnail(url, outfilename):
     else:
         tmpfile = outfilename + ".part"
 
+        with open(outfilename + ".url", "w") as fout:
+            fout.write(url + "\n")
+
         logging.info("%s: processing", url)
         p = subprocess.Popen(
             ["wkhtmltoimage",
