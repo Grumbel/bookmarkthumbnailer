@@ -46,6 +46,7 @@ def make_thumbnail(url, outfilename):
              "--quality", "80",
              "--load-error-handling", "abort",
              "--load-media-error-handling", "ignore",
+             "--javascript-delay", "5000",
              "--width", "1024",
              "--crop-w", "1024",
              # "--disable-smart-width",
