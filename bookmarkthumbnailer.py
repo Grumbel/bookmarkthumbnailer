@@ -80,6 +80,8 @@ def parse_args():
                         help='File with URLs')
     parser.add_argument('-o', '--output', metavar='DIR', type=str, required=True,
                         help="output directory")
+    parser.add_argument('-t', '--threads', metavar='NUM', type=int, required=False, default=2,
+                        help="Number of threads")
 
     return parser.parse_args()
 
@@ -105,8 +107,7 @@ def read_chrome_history(filename):
     return urls
 
 
-def generate_thumbnails(urls, output_directory):
-    max_workers=2
+def generate_thumbnails(urls, output_directory, max_workers):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = []
         for idx, url in enumerate(urls):
@@ -143,7 +144,7 @@ def main():
 
     logging.info("%s urls found", len(urls))
 
-    generate_thumbnails(sorted(urls), output_directory)
+    generate_thumbnails(sorted(urls), output_directory, args.threads)
 
 
 if __name__ == "__main__":
